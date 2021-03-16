@@ -2,7 +2,13 @@
     <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-        <style type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+	<!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+        
+	<style type="text/css">
             pre {
                 display: block;
                 padding: 9.5px;
@@ -15,17 +21,18 @@
                 background-color: #f5f5f5;
                 border: 1px solid #ccc;
                 border-radius: 4px;
-            }  
+            }   
         </style>
     </head>
     <body>
+      <div class="container">
         <div style="text-align:center; margin-bottom: 30px;">
-            <h1>Multi-Layer Perceptron Design</h1>
-            <p style="text-align: center">Presented by:</p>
-            <p style="text-align: center"><strong>Zachary Mackay, Thien Sam Duong and Philip Jansen</strong></p>
+            	<h1>Multi-Layer Perceptron Design</h1>
+            	<p style="text-align: center">Presented by:</p>
+            	<p style="text-align: center"><strong>Zachary Mackay, Thien Sam Duong and Philip Jansen</strong></p>
         </div>
         <p>
-            First we import and define our libraries
+            First we import and define our libraries.
         </p>
         <pre>
 	    import <a href="https://pandas.pydata.org/docs/">pandas</a> as p
@@ -41,7 +48,7 @@
 	<p>
             Next, we read in the data and split it up to traing and testing sets.
         </p>
-    	<pre>	
+    	<pre>
             Data = p.read_csv('data1.csv', delimiter=",")
 
             # split input data
@@ -60,34 +67,33 @@
             Data80 = Data80.drop(Data80.columns[-1], axis=1)
             Data20 = Data20.drop(Data20.columns[-1], axis=1)</pre>
 
-        <p>Next, we convert all data to "dummie" values. This is a way to encode all data into numerical data if it is categorical, allowing the classifier to work correctly</p>
+        <p>Next, we convert all data to "dummie" values. This is a way to encode all data into numerical data if it is categorical, allowing the classifier to work correctly.</p>
         <pre>
-
             # convert any categorical data into using dummie encoding
             Data80 = p.get_dummies(Data80)</pre>
 
-        <p>Next we ensure that all data is normalized by convertiing the value into its Z-Score</p>
+        <p>Next we <span style="color:red">ensure that all data is normalized</span> by convertiing the value into its Z-Score.</p>
         <pre>
             # use stats library to convert the data set into its z score for each col
             Data80 = stats.zscore(Data80, axis=1)</pre>
 
-        <p>Finally, we declare and initilize our Mulilayer Perceptron Classifier object. Passing in our solver, activation function, max iterations, learning rate, and hidden layer dimensions</p>
+        <p>Finally, we declare and initilize our Mulilayer Perceptron Classifier object. Passing in our solver, activation function, max iterations, learning rate, and hidden layer dimensions.</p>
 
         <pre>
             # activation function is the sigmoid function but could be changed
             mlp = MLP(solver='lbfgs', activation='logistic', max_iter=20000, alpha=ALPHA,
                     hidden_layer_sizes=(hiddenLayersCount, hiddenLayerNodes))</pre>
 
-        <p>Then we have to call the "fit" method. This method is what takes in the training data for the classifier and takes care of the training operations</p>
+        <p>Then we have to call the "fit" method. This method is what takes in the training data for the classifier and takes care of the training operations.</p>
         <pre>
             # using this method inserts the data for both input data and true value outputs and then begins training the algorithm
             mlp.fit(Data80, target80)</pre>
 
-        <p>All thats left now is to call the predict method and pass in the array of data that you would like to be predicted</p>
+        <p>All thats left now is to call the predict method and pass in the array of data that you would like to be predicted.</p>
         <pre>
             # create an array of predictions when given an array of input data
             predictions = mlp.predict(Data20)</pre>
-	    
 	<iframe src="https://giphy.com/embed/7HAm2aWDviqeQ" width=100% height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    </body>
+    </div>  
+  </body>
 </html
