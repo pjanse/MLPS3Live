@@ -25,7 +25,7 @@
         </style>
     </head>
     <body>
-      <div class="container">
+	<div class="container">
         <div style="text-align:center; margin-bottom: 30px;">
             	<h1>Multi-Layer Perceptron Design</h1>
             	<p style="text-align: center">Presented by:</p>
@@ -35,65 +35,66 @@
             First we import and define our libraries.
         </p>
         <pre>
-	    import <a href="https://pandas.pydata.org/docs/">pandas</a> as p
-	    import <a href="https://numpy.org/doc/">numpy</a> as np
-	    from <a href="https://scikit-learn.org/stable/modules/neural_networks_supervised.html">sklearn</a>.neural_network import MLPClassifier as MLP </pre>
+import <a href="https://pandas.pydata.org/docs/">pandas</a> as p
+import <a href="https://numpy.org/doc/">numpy</a> as np
+from <a href="https://scikit-learn.org/stable/modules/neural_networks_supervised.html">sklearn</a>.neural_network import MLPClassifier as MLP </pre>
         <p>
             Next we establish and set our parameters for the amount of layers, the amount of nodes in that layer, and the learning rate.
         </p>
         <pre>
-            hiddenLayersCount = 2
-            hiddenLayerNodes = 10
-            ALPHA = 0.01</pre>
+hiddenLayersCount = 2
+hiddenLayerNodes = 10
+ALPHA = 0.01</pre>
 	<p>
             Next, we read in the data and split it up to traing and testing sets.
         </p>
     	<pre>
-            Data = p.read_csv('data1.csv', delimiter=",")
+Data = p.read_csv('data1.csv', delimiter=",")
 
-            # split input data
-            Data80 = Data.sample(frac=0.8)
-            Data20 = Data.drop(Data80.index)
+# split input data
+Data80 = Data.sample(frac=0.8)
+Data20 = Data.drop(Data80.index)
 
-            # split true values
-            target80 = Data80.iloc[:, -1:]
-            target20 = Data20.iloc[:, -1:]
+# split true values
+target80 = Data80.iloc[:, -1:]
+target20 = Data20.iloc[:, -1:]
 
-            # transform targets into single arrays rather than multi-dimensional arrays
-            target80 = np.ravel(target80)
-            target20 = np.ravel(target20)
+# transform targets into single arrays rather than multi-dimensional arrays
+target80 = np.ravel(target80)
+target20 = np.ravel(target20)
 
-            # remove the targetCol from the data
-            Data80 = Data80.drop(Data80.columns[-1], axis=1)
-            Data20 = Data20.drop(Data20.columns[-1], axis=1)</pre>
+# remove the targetCol from the data
+Data80 = Data80.drop(Data80.columns[-1], axis=1)
+Data20 = Data20.drop(Data20.columns[-1], axis=1)</pre>
 
         <p>Next, we convert all data to "dummie" values. This is a way to encode all data into numerical data if it is categorical, allowing the classifier to work correctly.</p>
         <pre>
-            # convert any categorical data into using dummie encoding
-            Data80 = p.get_dummies(Data80)</pre>
+# convert any categorical data into using dummie encoding
+Data80 = p.get_dummies(Data80)</pre>
 
         <p>Next we <span style="color:red">ensure that all data is normalized</span> by convertiing the value into its Z-Score.</p>
         <pre>
-            # use stats library to convert the data set into its z score for each col
-            Data80 = stats.zscore(Data80, axis=1)</pre>
+# use stats library to convert the data set into its z score for each col
+Data80 = stats.zscore(Data80, axis=1)</pre>
 
         <p>Finally, we declare and initilize our Mulilayer Perceptron Classifier object. Passing in our solver, activation function, max iterations, learning rate, and hidden layer dimensions.</p>
 
         <pre>
-            # activation function is the sigmoid function but could be changed
-            mlp = MLP(solver='lbfgs', activation='logistic', max_iter=20000, alpha=ALPHA,
-                    hidden_layer_sizes=(hiddenLayersCount, hiddenLayerNodes))</pre>
+# activation function is the sigmoid function but could be changed
+mlp = MLP(solver='lbfgs', activation='logistic', max_iter=20000, alpha=ALPHA,hidden_layer_sizes=(hiddenLayersCount, hiddenLayerNodes))</pre>
 
         <p>Then we have to call the "fit" method. This method is what takes in the training data for the classifier and takes care of the training operations.</p>
         <pre>
-            # using this method inserts the data for both input data and true value outputs and then begins training the algorithm
-            mlp.fit(Data80, target80)</pre>
+# using this method inserts the data for both input data and true value outputs and then begins training the algorithm
+mlp.fit(Data80, target80)</pre>
 
         <p>All thats left now is to call the predict method and pass in the array of data that you would like to be predicted.</p>
         <pre>
-            # create an array of predictions when given an array of input data
-            predictions = mlp.predict(Data20)</pre>
+# create an array of predictions when given an array of input data
+predictions = mlp.predict(Data20)</pre>
 	<iframe src="https://giphy.com/embed/7HAm2aWDviqeQ" width=100% height="270" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    </div>  
+ 	</div>  
   </body>
+
+
 </html
